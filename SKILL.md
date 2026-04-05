@@ -282,3 +282,4 @@ If called on a project that already has `.analysis.md`:
   thresholds, sizes, layers), capture them — these become resume bullet fodder.
 - **Analysis purpose matters**: for `resume`, bias toward "what's technically
   impressive"; for `learning`, bias toward "what's the design intent and why".
+
