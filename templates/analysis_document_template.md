@@ -35,6 +35,29 @@ _To be filled in Phase 2._
 
 ---
 
+## Lifecycle
+
+_Skeleton drawn in Phase 2; each node filled in as modules are analyzed in Phase 4._
+
+<!--
+Represent the system's data/control flow as a tree.
+Use indented arrows for branching paths. Example:
+
+[Entry: HTTP request]
+  → auth middleware         (validates token, attaches user context)
+      → [branch: unauthenticated] → 401 response
+      → [branch: authenticated]
+          → router
+              → [branch: GET /items]  → items_handler → db.query → JSON response
+              → [branch: POST /items] → validator → db.insert → event emitter
+                                                                    → audit_log
+                                                                    → notification_queue
+-->
+
+_To be filled in Phase 2 (skeleton) and progressively completed in Phase 4._
+
+---
+
 ## PR / Commit Evolution
 
 _To be filled in Phase 3._

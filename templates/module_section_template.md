@@ -31,6 +31,13 @@ over alternatives? Cite PRs or comments if they document the rationale.
 - Key APIs: [most important functions/endpoints — names and brief purpose, not full signatures]
 - Side effects: [DB writes, external API calls, events emitted, files written]
 
+**Lifecycle role**:
+- Lifecycle path(s): [which branch(es) of the lifecycle tree this module sits on]
+- Receives from: [upstream module or external source → what data/event arrives]
+- Passes to: [downstream module(s) → what data/event leaves]
+- Branching: [does this module fork the lifecycle? list branch conditions and where each path leads]
+- Terminal?: [yes/no — does any path end here (response returned, event emitted, job done)?]
+
 **Dependencies**:
 - Depends on: [other modules this imports or calls]
 - Depended on by: [other modules that import or call this]

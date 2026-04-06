@@ -80,8 +80,9 @@ User: "Analyze this project: /path/to/repo"
      |
      +-> [structure_agent]
          → See agents/structure_agent.md
+         → Writes Lifecycle skeleton (entry points + stubs, branching where evident)
      |
-     ** CHECKPOINT 2: Present module list with proposed order, wait for approval **
+     ** CHECKPOINT 2: Present module list + lifecycle skeleton, wait for approval **
      |
 === Phase 3: GIT / PR HISTORY ===
      |
@@ -95,13 +96,30 @@ User: "Analyze this project: /path/to/repo"
      For each module in the approved order:
      +-> [module_agent]  (one invocation per module)
          → See agents/module_agent.md
+         → Fills module's Lifecycle role fields
+         → Updates Lifecycle tree in .analysis.md (replaces [?] stubs, adds branches)
          |
-         ** CHECKPOINT 4-N: Announce module complete, wait for "go" or questions **
+         ** CHECKPOINT 4-N: Announce module complete + lifecycle update, wait for "go" **
      |
      After all modules ✅:
-     +-> Write Summary section
+     +-> Verify Lifecycle tree is complete (no unresolved stubs)
+     +-> Write Summary section (includes Lifecycle shape field)
      +-> Report completion to user
 ```
+
+### Lifecycle as a shared artifact
+
+The `## Lifecycle` section in `.analysis.md` is built incrementally across phases:
+
+| Phase | Lifecycle contribution |
+|-------|----------------------|
+| Phase 2 | Skeleton — entry points, top-level branches, module stubs marked `[?]` |
+| Phase 4 (each module) | Fill that module's node — data in/out, branch conditions, terminals |
+| Summary | One-sentence characterization of the overall lifecycle shape |
+
+If the system has multiple independent entry points (HTTP server, background worker, CLI),
+each gets its own lifecycle tree. Branches within a tree represent conditional paths
+(auth failure vs success, different request types, error vs happy path).
 
 ---
 
@@ -141,6 +159,8 @@ If `.analysis.md` already exists, `intake_agent` handles resumption:
 | Depth calibration | Core modules: all fields. Utilities: one line |
 | No fabrication | Only report what's documented or clearly evident in code |
 | Purpose sensitivity | `resume`: flag what's impressive. `learning`: flag what's non-obvious |
+| Lifecycle fidelity | Lifecycle tree must reflect actual code paths — no invented branches; stubs `[?]` are acceptable, invented flow is not |
+| Lifecycle completeness | Every analyzed module must appear in the lifecycle tree — no orphan modules |
 
 ---
 

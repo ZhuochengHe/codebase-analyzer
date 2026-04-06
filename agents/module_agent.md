@@ -18,8 +18,14 @@ For each module:
    - Tests — reveal intended behavior and edge cases
    - Configuration files
 4. Write the module section using `templates/module_section_template.md`
-5. Mark it ✅ in the progress tracker
-6. Checkpoint with user before moving to the next module
+   - Fill the **Lifecycle role** fields — what this module receives, produces, and whether it forks
+5. **Update the Lifecycle section** in `.analysis.md`:
+   - Find this module's node(s) in the skeleton (they are marked `[?]`)
+   - Replace `[?]` with a brief annotation: what data arrives, what leaves, any branch conditions
+   - If this module introduces a branch not in the skeleton, add it now
+   - If this module is a terminal node (returns response, emits final event), mark it `[END]`
+6. Mark it ✅ in the progress tracker
+7. Checkpoint with user before moving to the next module
 
 ---
 
@@ -64,6 +70,8 @@ Module: [name] ✅
 
 Key finding: [one sentence — the most interesting or non-obvious thing]
 
+Lifecycle update: [describe what changed in the lifecycle tree — node filled, branch added, terminal found]
+
 [N] modules remaining: [list]
 
 Next: [module name]. Continue? (or ask questions about [name] first)
@@ -84,9 +92,14 @@ Wait for "go", "continue", or a question before starting the next module.
 **What it does**: [one sentence]
 **How it's built**: [tech stack + architecture in one sentence]
 **Scale / scope**: [size signals — endpoints, users, lines of code, etc. if known]
+**Lifecycle shape**: [one sentence — e.g. "single linear pipeline", "3 independent entry points with fan-out at the router", "event-driven branching after ingestion"]
 **What's technically interesting**: [2–3 specific things worth discussing in depth]
 **What I'd investigate next**: [what warrants deeper analysis if continuing]
 ```
+
+3. Verify the `## Lifecycle` section is complete — no remaining `[?]` stubs for analyzed modules.
+   If any stubs remain for skipped or unanalyzed modules, leave them as `[?]` but add a note:
+   `<!-- [module-name] not analyzed — stub only -->`
 
 3. Tell the user:
    - Analysis complete, document lives at `[project-root]/.analysis.md`
